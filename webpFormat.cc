@@ -11,10 +11,6 @@ WEBP WEBP::decode(std::vector<unsigned char> data)
   {
     return out;
   }
-  if(!WebPGetInfo(mData.data(), mData.size(), &out.m_width, &out.m_height))
-  {
-    return out;
-  }
   WebPBitstreamFeatures features;
   if(WebPGetFeatures(mData.data(), mData.size(), &features) != VP8_STATUS_OK)
   {
@@ -30,14 +26,13 @@ WEBP WEBP::decode(std::vector<unsigned char> data)
   {
     case 3:
       arr = WebPDecodeRGB(mData.data(), out.m_decodedData.size(), &out.m_width, &out.m_height);
-      memcpy(out.m_decodedData.data(), arr, decodedSize);
       break;
     case 4:
       arr = WebPDecodeRGBA(mData.data(), out.m_decodedData.size(), &out.m_width, &out.m_height);
-      memcpy(out.m_decodedData.data(), arr, decodedSize);
       break;
     default:
       break;
   }
+  memcpy(out.m_decodedData.data(), arr, decodedSize);
   return out;
 }
