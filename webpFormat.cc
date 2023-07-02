@@ -31,7 +31,7 @@ WEBP WEBP::decode(std::vector<unsigned char> data)
       arr = WebPDecodeRGBA(mData.data(), out.m_decodedData.size(), &out.m_width, &out.m_height);
       break;
     default:
-      break;
+      return {};
   }
   memcpy(out.m_decodedData.data(), arr, decodedSize);
   return out;
